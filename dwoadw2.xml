@@ -1,0 +1,48 @@
+<Schema name="wh_adventureworks">
+
+<Cube name="Sales" defaultMeasure="OrderQty">
+
+    <Table name="fakta_sales"/>
+    
+        <Dimension name="Produk" foreignKey="ProdukID">
+            <Hierarchy hasAll="true" allMemberName="All Products" primaryKey="ProdukID">
+            <Table name="dim_produk"/>
+            <Level name="ProductName" column="NamaProduk"/>
+            <Level name="subcategory" column="SubCategory"/>
+            <Level name="category" column="Category"/>
+            </Hierarchy>
+        </Dimension>    
+
+        <Dimension name="Customer" foreignKey="CustomerID">
+            <Hierarchy hasAll="true" allMemberName="All Customers" primaryKey="CustomerID">
+            <Table name="dim_customer"/>
+            <Level name="costumeraccount" column="AkunCustomer"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Store" foreignKey="StoreID">
+            <Hierarchy hasAll="true" allMemberName="All Stores" primaryKey="StoreID">
+            <Table name="dim_store"/>
+            <Level name="storename" column="NamaToko"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="CreditCard" foreignKey="CreditCardID">
+            <Hierarchy hasAll="true" allMemberName="All CreditCards" primaryKey="CreditCardID">
+            <Table name="dim_creditcard"/>
+            <Level name="creditcardtype" column="TipeKartu"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Time" foreignKey="TimeID">
+            <Hierarchy hasAll="true" allMemberName="All Times" primaryKey="TimeID">
+            <Table name="dim_time"/>
+            <Level name="year" column="Tahun"/>
+            <Level name="month" column="NamaBulan"/>
+            <Level name="date" column="Tanggal"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="OrderQty" column="OrderQty" aggregator="sum" formatString="Standard"/>
+</Cube>
+</Schema>

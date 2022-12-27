@@ -1,0 +1,41 @@
+<Schema name="wh_adventureworks">
+
+<Cube name="Pembelian" defaultMeasure="OrderQty">
+
+    <Table name="fakta_purchase"/>
+    
+        <Dimension name="Produk" foreignKey="ProdukID">
+            <Hierarchy hasAll="true" allMemberName="All Products" primaryKey="ProdukID">
+            <Table name="dim_produk"/>
+            <Level name="ProductName" column="NamaProduk"/>
+            <Level name="subcategory" column="SubCategory"/>
+            <Level name="category" column="Category"/>
+            </Hierarchy>
+        </Dimension>    
+
+        <Dimension name="Vendor" foreignKey="VendorID">
+            <Hierarchy hasAll="true" allMemberName="All Vendors" primaryKey="VendorID">
+            <Table name="dim_vendor"/>
+            <Level name="vendorname" column="NamaVendor"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Time" foreignKey="TimeID">
+            <Hierarchy hasAll="true" allMemberName="All Times" primaryKey="TimeID">
+            <Table name="dim_time"/>
+            <Level name="year" column="Tahun"/>
+            <Level name="month" column="NamaBulan"/>
+            <Level name="date" column="Tanggal"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Dimension name="Shipmethod" foreignKey="ShipMethodID">
+            <Hierarchy hasAll="true" allMemberName="All Shipmethods" primaryKey="ShipMethodID">
+            <Table name="dim_shipmethod"/>
+            <Level name="shipmethodname" column="JasaPengiriman"/>
+            </Hierarchy>
+        </Dimension>
+
+        <Measure name="OrderQty" column="OrderQty" aggregator="sum" formatString="Standard"/>
+</Cube>
+</Schema>
